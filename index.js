@@ -80,17 +80,19 @@ class Car {
         this.tank = 0;
         this.odometer = 0;
     }
-    fuel(gallons) {
+    fill(gallons) {
         return (this.tank += gallons);
-        if (this.tank <= 0) {
-            this.tank = 0;
-            return 'I ran out of fuel at ${this.odometer} miles';
-        }
     }
+
     drive(distance) {
         if (distance / this.milesPerGallon) {
-            return (this.odometer = this.odometer + distance);
-            return (this.tank = this.tank - distance / this.milesPerGallon);
+            return (
+                (this.odometer = this.odometer + distance),
+                (this.tank = this.tank - distance / this.milesPerGallon)
+            );
+        } else if (this.tank <= 0) {
+            this.tank = 0;
+            return 'I ran out of fuel at ${this.odometer} miles';
         }
     }
 }
@@ -167,16 +169,16 @@ class Student extends Lambdasian {
         super(object);
         this.previousBackground = object.previousBackground;
         this.className = object.className;
-        this.favSubjects = ['HTML', 'CSS', 'JS'];
+        this.favSubjects = object.favSubjects;
     }
     listSubjects() {
         return `Loving ${this.favSubjects}!`;
     }
-    PRAssignment(student, subject) {
-        return `${student.name} has submitted a PR for ${subject}`;
+    PRAssignment(subject) {
+        return `${this.name} has submitted a PR for ${subject}`;
     }
-    sprintChallenge(student, subject) {
-        return `${student.name} has begun sprint challenge on ${subject}`;
+    sprintChallenge(subject) {
+        return `${this.name} has begun sprint challenge on ${subject}`;
     }
 }
 
