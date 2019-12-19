@@ -81,18 +81,19 @@ class Car {
         this.odometer = 0;
     }
     fill(gallons) {
-        return (this.tank += gallons);
+        this.tank += gallons;
     }
 
     drive(distance) {
-        if (distance / this.milesPerGallon) {
-            return (
-                (this.odometer = this.odometer + distance),
-                (this.tank = this.tank - distance / this.milesPerGallon)
-            );
-        } else if (this.tank <= 0) {
+        const maxDist = this.tank * this.milesPerGallon;
+        if (maxDist >= distance) {
+            this.odometer += distance;
+            this.tank -= distance / this.milesPerGallon;
+        } else {
             this.tank = 0;
-            return 'I ran out of fuel at ${this.odometer} miles';
+            this.odometer = maxDist;
+
+            return `I ran out of fuel at ${this.odometer} miles!`;
         }
     }
 }
